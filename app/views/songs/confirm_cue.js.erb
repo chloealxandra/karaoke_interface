@@ -1,0 +1,7 @@
+$("#confirm_cue_modal").html("<%= escape_javascript(render 'songs/confirm_cue') %>");
+$( "#singer-dropdown" ).select2({
+  placeholder: 'choose or type name',
+  allowClear: true,
+
+});
+$('#singer-dropdown').val('').trigger('change')

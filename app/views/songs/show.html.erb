@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+    <p>
+      <strong>Title:</strong>
+      <%= @song.title %>
+    </p>
+
+    <p>
+      <strong>Artist:</strong>
+      <%= @song.artist %>
+    </p>
+
+    <p>
+      <strong>Location:</strong>
+      <%= @song.location %>
+    </p>
+
+    <p>
+      <strong>Category:</strong>
+      <%= @song.category %>
+    </p>
+
+  <%= link_to 'Edit', edit_song_path(@song) %> |
+  <%= link_to 'Back', songs_path %>
+</body>
+</html>

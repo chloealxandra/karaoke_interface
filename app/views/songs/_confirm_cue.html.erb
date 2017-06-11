@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title" id="myModalLabel">Add <%= @song.title %> to your cue?</h4>
+</div>
+<div class="modal-body">
+  <%= form_tag("/enqueue", method: "post") do %>
+    <%if current_user.username == "room_console"%>
+      <%= label_tag(:singer, "Enter your screen name") %>
+      <%= text_field_tag(:singer) %>
+      <br />
+      Or select from below:
+      <%= select_tag "singer-dropdown", options_from_collection_for_select(@singers, "name", "name") %>
+    <%else%>
+      <%= hidden_field_tag(:singer, current_user.username) %>
+    <%end%>
+    <%= hidden_field_tag(:room, 0) %>
+    <%= hidden_field_tag(:song, @song.soID) %>
+    <br />
+    <%= submit_tag("Confirm", :class => "btn btn-primary btn-small") %>
+  <% end %>
+</div>
+<div class="modal-footer">
+<i>Now that is karaoke&trade;</i>
+</div>
+

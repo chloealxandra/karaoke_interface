@@ -1,0 +1,56 @@
+<html lang="en">
+  <head>
+    <%= javascript_include_tag :application %>
+    <%= csrf_meta_tag %>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title></title>
+    <p id="notice"><%= notice %></p>
+
+  <table class = "table table-striped">
+      <thead>
+        <tr>
+          <th>click cue to add a song!</th>
+          <th></th>
+          <!-- <th>Category</th> -->
+        </tr>
+      </thead>
+  </table>
+  <script>
+  $( document ).ready(function() {
+    $('#myModal').modal('show')
+  });
+  </script>
+  </head>
+  <body>
+
+      <!-- request passkey modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div id="request_new_passkey" class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Join a party</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_tag("/submit_passkey", method: "post") do %>
+            <%= label_tag(:passkey, "Enter your passphrase") %>
+            <%= text_field_tag(:passkey) %>
+            <br />
+            <%= submit_tag("Submit", :class => "btn btn-primary btn-small") %>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+        <i>Now that is karaoke&trade;</i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </body>
+  </html>

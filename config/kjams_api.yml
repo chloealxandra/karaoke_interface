@@ -1,0 +1,4 @@
+development: localhost:3030
+test: localhost:3030
+staging: localhost:3030
+production: 173.240.253.187:3030

@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title" id="myModalLabel">Are you sure you want to end this active karaoke party?</h4>
+</div>
+<div class="modal-body">
+  <%= form_for @karaoke_session, method: :delete do |f| %>
+    <%= submit_tag("End party in room #{@karaoke_room.name}?", :class => "btn btn-primary btn-large") %>
+    <%= hidden_field_tag(:room, @karaoke_room) %>
+  <%end%>
+</div>
+<div class="modal-footer">
+<i>Now that was karaoke&trade;</i>
+</div>

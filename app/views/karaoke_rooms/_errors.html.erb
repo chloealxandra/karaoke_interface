@@ -1,0 +1,13 @@
+<% if @karaoke_room.errors.any? %>
+  <div class="errors">
+    <h3>
+      <%= pluralize(@karaoke_room.errors.count, 'error') %>
+      prohibited this karaoke_room from being saved:
+    </h3>
+    <ul>
+      <% @karaoke_room.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

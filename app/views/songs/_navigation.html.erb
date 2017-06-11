@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      $(document).ready(function(){
+          $("#search").keyup(function(){
+              $("#searchclear").toggle(Boolean($(this).val()));
+          });
+          $("#searchclear").toggle(Boolean($("#search").val()));
+          $("#searchclear").click(function(){
+              $("#search").val('').focus();
+              $(this).hide();
+          });
+      });
+    </script>
+
+
+  </head>
+	<body>
+    <nav class="navbar navbar-trans navbar-default navbar-fixed-top" role="navigation" id="topnavbar">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#songs-navbar-collapse-1" aria-expanded="false">
+
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+
+          </button>
+
+            <div class="navbar-search navbar-left">
+              <span>
+                <div class="search-field">
+                <%= form_tag songs_path, :method => 'get' do %>
+                  <div class="btn-group">
+                    <%= text_field_tag(:search, params[:search], class: "search-text-field") %>
+                    <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
+                  </div>
+                    <%= button_tag(type: 'submit', class: "btn btn-primary btn-small") do %>
+                      <span class="glyphicon glyphicon-search"></span>
+                    <% end %>
+                  </div>
+                <% end %>
+              </span>
+            </div>
+          </div>
+             
+        <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="songs-navbar-collapse-1">
+    <ul class="nav navbar-nav" data-hook="top-header-navbar">
+
+      <a class="navbar-brand" href="/songs#index">
+        <span></span>
+      </a>
+
+      <li >
+        <% if user_signed_in? %>
+        <!-- TODO: populate the following with link_to helper linked to users session.-->
+          <a href="/karaoke_session/0">Cue</a>
+        <% end %>
+      </li>
+      <li  >
+        <a href="/artists">Artists</a>
+      </li>
+      <li >
+        <% if user_signed_in? %>
+         <a href="/plays">History</a>
+      </li>
+      <li >
+         <a href="/favorites">Faves</a>
+        <% end %>
+      </li>
+      <li >
+        <a href="/capitol_hits">Capitol Hits</a>
+      </li>
+      <li >
+        <% if user_signed_in? %>
+          <% if current_user.admin?%>
+            <a href="/karaoke_session">Dashboard</a>
+          <% end %>
+        <% end %>
+      </li>
+<!--       <li  > where search used to live.
+
+      </li> -->
+    </ul>
+    <ul class="navbar-text navbar-nav navbar-right">
+      <li id="devise">
+        <% if user_signed_in? %>
+          <strong><%= current_user.username %></strong> 
+          <%= link_to 'Edit Profile', edit_user_registration_path, :class => 'navbar-link' %> |
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+          <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+        <% end %>
+      </li>
+    </ul>
+    </div>
+  </div>
+    <!-- /.navbar-collapse -->
+  </div>
+    <!-- /.container-fluid -->
+  </nav>
+	</body>
+</html>
+

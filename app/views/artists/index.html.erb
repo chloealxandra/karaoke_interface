@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<table class = "table table-striped">
+    <thead>
+      <tr>
+        <th>click queue to add a song!</th>
+        <th></th>
+        <!-- <th>Category</th> -->
+      </tr>
+  </thead>
+  </head>
+	
+
+  <body>
+    <tbody>
+    <% if @artists == ["nothing"]%>
+      <tr><td>
+       <p> enter a song or artist into the search!</p>
+      </tr></td>
+
+    <% else %>
+      <% @artists.order("name").each do |artist| %>
+        <tr><td>
+        <dl><%= link_to artist.name, artist_path(artist.id) %>
+
+    <% end %>
+      </td>
+    <% end %>
+    </tr>
+    </tbody>
+  </table>
+
+
+	</body>
+
+</html>

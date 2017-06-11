@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+
+  <body>
+    <% if flash[:notice] %>
+      <div id="notice"><%= flash[:notice] %></div>
+    <% end %>
+    <h1>Dashboard</h1>
+      <% @rooms.order("name").each do |room| %>
+        <% if room.karaoke_sessions.find_by(is_active: "true") %>
+          <%= form_tag("/confirm_end_session", remote: true) do %>
+            <%= submit_tag "End Session in room #{room.name}?", class: 'btn btn-primary btn-large', data: {toggle: "modal", target: '#myModal' }  %>
+            <b>Party in progress</b> <em>token: <%= room.karaoke_sessions.find_by(is_active: "true").token %></em>
+            <%= hidden_field_tag(:karaoke_session, room.karaoke_sessions.find_by(is_active: "true").id)%>
+            <%end%>
+        <%else%>
+          <%= form_tag("/karaoke_session", method: "post") do %>
+          <%= submit_tag("Start Party in Room #{room.name}", :class => "btn btn-primary btn-large") %>
+              <%= label_tag(:length, "How many hours?") %>
+              <%= text_field_tag(:length) %>
+              <%= hidden_field_tag(:room, room.name) %>
+          <% end %>
+        <%end%>
+        <br /><br />
+      <%end%>
+
+      <!-- Confirmation Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div id="confirm_end_session" class="modal-content">
+            
+          </div>
+        </div>
+      </div>
+  </body>
+
+</html>

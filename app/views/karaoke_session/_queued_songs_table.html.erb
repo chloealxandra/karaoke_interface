@@ -1,0 +1,10 @@
+<table id="queued_songs_table">
+  <% @queued_songs.each do |song| %>
+    <tr>
+      <td><%= song['singer'] %>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
+      <td><%= song['title'] %>&nbsp;<td>
+      <td><%= song['artist']%>&nbsp;</td>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+
+  <body>
+    <h1>Coming up:</h1>
+    <script>
+      function queuePoller(url) {
+        // console.log("calling ajax...")
+        $.ajax({
+          url : url,
+          // ifModified : true
+        }).done(function(response) {
+          // console.log(response);
+          var new_table = "";
+          //replace ugly loop below by figuring out how to reload the partial
+          for (i=0; i<response.length; i++){
+            new_table = new_table+"<tr><td>"+response[i].singer+"&nbsp;&nbsp;-&nbsp;&nbsp;</td><td>"+response[i].title+"&nbsp;<td><td> "+response[i].artist+"&nbsp;</td></td></tr>"
+          }
+          $('#queued_songs_table').html(new_table); 
+        });
+      }
+      $('document').ready(function(){
+        var room_name = parseInt($('#queued_songs_table_container').attr('data-room')) - 1;
+        var urlForQueue = '/karaoke_session/'+room_name+'.json';
+        setInterval(function(){
+          queuePoller(urlForQueue);
+        }, 5000);
+      });
+    </script>
+    <div id="queued_songs_table_container" data-room="<%= @room %>" >
+      <%= render partial: 'queued_songs_table' %>
+    </div>
+    <div id="outer_container" class="container-fluid">
+      <div id="row_holder" class"row">
+<!--         <div id="controls">
+          <br />
+          <%= button_to 'Skip current song', {:controller => "songs", :action => "skip"}, :class => 'btn btn-danger btn-small' %> 
+          <br />
+          <%= button_to 'Delete current song', {:controller => "songs", :action => "remove"}, :class => 'btn btn-danger btn-small' %> 
+          <br />
+          <%= button_to 'Pause/Play', {:controller => "songs", :action => "play_pause"}, :class => 'btn btn-danger btn-small' %>
+          <br /><br />
+        </div> -->
+        
+      </div>
+    </div>
+  </body>
+
+</html>

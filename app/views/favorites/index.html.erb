@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <table class = "table table-striped">
+    <thead>
+      <tr>
+        <th>click queue to add a song!</th>
+        <th></th>
+        <!-- <th>Category</th> -->
+      </tr>
+  </thead>
+  </head>
+  <body>
+   <tbody>
+    <% if @favorites.empty?%>
+      <tr><td>
+       <p>add a song to your favorites search results to sing later!</p>
+      </tr></td>
+
+      <% else %>
+        <% @favorites.each do |favorite| %>
+          <tr>
+            <td>
+            <dl><% song = Song.find favorite.song_id %><%=song.title %>
+              <br/>
+
+
+              <%= link_to song.artist.name, artist_path(song.artist.id) %>
+              <br/>
+<!--             <%= text_area_tag( size: "23x2") %> -->
+<!--             <form name="myform">
+             <input type="text" />
+             <button class="buttonFinish"></button>
+            </form>
+ -->
+            <script type="javascipt">
+            // $(document).ready(function() {
+            //     $('.buttonFinish').click(function(){
+            //         $('.myform').submit();
+            //     });
+            // }
+            </script>
+
+              <!-- artist_path = show artists_path = index -->
+            </td>
+
+            <td>
+
+          <% if user_signed_in? == true %>
+            <% unless song.soID == nil %>
+            <%= button_to 'Cue', confirm_cue_path(:song => song.id),  {:remote => true, 'data-toggle' =>  "modal", :class => 'btn btn-primary btn-small', 'data-target' => '#myModal'}  %>
+            <% end %>
+          <% else %>
+            <%= button_to 'Cue', new_user_session_path %>
+            <% end %>
+            </td><td>
+
+          <%= button_to 'Delete', favorite_path(favorite.id), :method => :delete, :class => 'btn btn-default btn-small' %>
+
+
+          <% end %> 
+      <% end %>
+       <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm" role="document">
+            <div id="confirm_cue_modal" class="modal-content">
+              
+            </div>
+          </div>
+        </div>
+
+  </tbody>
+  </body>
+</html>
+

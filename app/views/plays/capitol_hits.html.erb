@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <table class = "table table-striped">
+    <thead>
+      <tr>
+        <th>click queue to add a song!</th>
+        <th></th>
+        <!-- <th>Category</th> -->
+      </tr>
+  </thead>
+  </head>
+  <body>
+   <tbody>
+    <% if @songs.empty?%>
+      <tr><td>
+       <p>There are no hits yet, start singing to make them!</p>
+      </tr></td>
+
+      <% else %>
+        <% @songs.each do |song| %>
+          <tr><td>
+            <dl><%= song.title %>
+              <br/>
+
+
+              <%= link_to song.artist.name, artist_path(song.artist.id) %>
+
+              <!-- artist_path = show artists_path = index -->
+
+
+            </td>
+            <td>
+
+          <% if user_signed_in? == true %>
+            <% unless song.soID == nil %>
+            <%= button_to 'Cue', confirm_cue_path(:song => song.id),  {:remote => true, 'data-toggle' =>  "modal", :class => 'btn btn-primary btn-small', 'data-target' => '#myModal'}  %>
+            <% end %>
+          <% else %>
+            <%= button_to 'Cue', new_user_session_path %>
+            <% end %>
+          </td>
+          <td>
+          <% if user_signed_in? == true %>
+            <% unless song.soID == nil %>
+            <%= button_to '<3', confirm_favorite_path(:song => song.id),  {:remote => true, 'data-toggle' =>  "modal", :class => 'btn btn-default btn-small', 'data-target' => '#myModal'}   %>
+            <% end %>
+          <% else %>
+            <%= button_to '<3', new_user_session_path %>
+            <% end %>
+
+          <% end %> 
+      <% end %>
+       <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm" role="document">
+            <div id="confirm_cue_modal" class="modal-content">
+              
+            </div>
+          </div>
+        </div>
+
+  </tbody>
+  </body>
+</html>

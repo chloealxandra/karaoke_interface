@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title" id="myModalLabel">Add <%= @song.title %> to your Favorites?</h4>
+</div>
+<div class="modal-body">
+
+  <%= form_tag("/favorites", method: "post") do %>
+    <%= hidden_field_tag(:song, @song.soID) %>
+    <%= submit_tag("Confirm", :class => "btn btn-primary btn-small") %>
+  <% end %>
+
+</div>
+<div class="modal-footer">
+<i>Now that is karaoke&trade;</i>
+</div>
