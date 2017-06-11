@@ -1,7 +1,7 @@
 # README
 This is a pretty terse guide to setting up this package:
 
-PostgreSQL as the database: for a larger database (ours has a few hundred items) and fuzzy search use pg_trgm and GIN indexing to expedite load time.
+PostgreSQL as the database: for a larger database (ours has a few hundred thousand items) and fuzzy search use pg_trgm and GIN indexing to expedite load time.
 
 check out the gemfile for additional dependencies
 
